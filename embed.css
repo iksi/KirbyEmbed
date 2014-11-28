@@ -1,0 +1,32 @@
+.Embed {
+    margin: 1em 0;
+}
+
+.Embed > a {
+    display: block;
+    text-align: center;
+}
+
+.Embed[data-type$="embed"] {
+    padding: 1em;
+    background-color: #f0f0f0;
+}
+
+.Embed[data-type^="embed"] > iframe {
+    width: 100%;
+    vertical-align: top;
+}
+
+.Embed[data-type$="vimeo"],
+.Embed[data-type$="youtube"] {
+    position: relative;
+}
+
+.Embed[data-type$="vimeo"] > iframe,
+.Embed[data-type$="youtube"] > iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
