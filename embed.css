@@ -1,29 +1,32 @@
+/**
+ * Embed
+ */
 .Embed {
-    margin: 1em 0;
-}
-
-.Embed > a {
-    display: block;
-    text-align: center;
-}
-
-.Embed[data-type$="embed"] {
     padding: 1em;
+    margin: 1em 0;
+    text-align: center;
     background-color: #f0f0f0;
 }
 
-.Embed[data-type^="embed"] > iframe {
+.Embed > iframe {
     width: 100%;
     vertical-align: top;
 }
 
-.Embed[data-type$="vimeo"],
-.Embed[data-type$="youtube"] {
+.Embed--vimeo,
+.Embed--youtube,
+.Embed--mixcloud,
+.Embed--soundcloud {
+    padding: 0;
+}
+
+.Embed--vimeo,
+.Embed--youtube {
     position: relative;
 }
 
-.Embed[data-type$="vimeo"] > iframe,
-.Embed[data-type$="youtube"] > iframe {
+.Embed--vimeo > iframe,
+.Embed--youtube > iframe {
     position: absolute;
     top: 0;
     left: 0;

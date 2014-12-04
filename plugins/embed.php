@@ -4,51 +4,89 @@ namespace Iksi;
 
 class Embed {
 
-    public static function embed($url)
+    public static function embed($params)
     {
-        $url = self::url($url);
+        $url = self::url($params);
 
-        if ($url && filter_var($url, FILTER_VALIDATE_URL))
+        if ($url === FALSE)
         {
-            $handle = curl_init($url);
-
-            curl_setopt($handle, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($handle, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
-
-            $data = curl_exec($handle);
-
-            curl_close($handle);
-
-            return $data;
+            return json_encode(
+                array('error' => 'something wrong with that url')
+            );
         }
 
-        return json_encode(
-            array('error' => 'not found')
-        );
+        $handle = curl_init($url);
+
+        curl_setopt($handle, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($handle, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+
+        $json = curl_exec($handle);
+
+        curl_close($handle);
+
+        return self::filter($json, $params);
     }
 
-    protected static function url($url)
+    protected static function filter($json, $params)
     {
-        $host = parse_url($url, PHP_URL_HOST);
+        $data = json_decode($json, TRUE);
+
+        // Remove the url
+        unset($params['url']);
+
+        switch (strtolower($data['provider_name']))
+        {
+            case 'soundcloud':
+                $keys = array('autoplay' => 'auto_play');
+            break;
+        }
+
+        $params = isset($keys)
+            ? array_combine(array_merge($params, $keys), $params)
+            : $params;
+
+        // Get iframe src attribute
+        preg_match('/src="([^"]+)"/', $data['html'], $match);
+
+        $glue = empty(parse_url($match[1], PHP_URL_QUERY)) ? '?' : '&';
+
+        // Replace iframe src attribute
+        $data['html'] = preg_replace(
+            '/src="([^"]+)"/', 
+            'src="' . $match[1] . $glue . http_build_query($params) . '"',
+            $data['html']
+        );
+
+        return json_encode($data);
+    }
+
+    protected static function url($params)
+    {
+        if ( ! isset($params['url']) || ! filter_var($params['url'], FILTER_VALIDATE_URL))
+        {
+            return FALSE;
+        }
+
+        $host = parse_url($params['url'], PHP_URL_HOST);
 
         if (preg_match('/youtube\.com$/', $host))
         {
-            return 'https://www.youtube.com/oembed?url=' . $url;
+            return 'https://www.youtube.com/oembed?url=' . $params['url'];
         }
         
         if (preg_match('/mixcloud\.com$/', $host))
         {
-            return 'https://www.mixcloud.com/oembed/?url=' . $url;
+            return 'https://www.mixcloud.com/oembed/?url=' . $params['url'];
         }
         
         if (preg_match('/soundcloud\.com$/', $host))
         {
-            return 'https://soundcloud.com/oembed.json?url=' . $url;
+            return 'https://soundcloud.com/oembed.json?url=' . $params['url'];
         }
 
         if (preg_match('/vimeo\.com$/', $host))
         {
-            return 'https://vimeo.com/api/oembed.json?url=' . $url;
+            return 'https://vimeo.com/api/oembed.json?url=' . $params['url'];
         }
 
         return FALSE;
