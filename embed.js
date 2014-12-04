@@ -26,7 +26,7 @@ var Embed = (function () {
             );
 
             // Video, add paddingTop based on the ratio
-            if (provider === 'YouTube' || provider === 'Vimeo') {
+            if (provider === 'youtube' || provider === 'vimeo') {
                 embedElement.style.paddingTop = (100 * response.height / response.width) + '%';
             }
 
