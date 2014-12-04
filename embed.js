@@ -1,4 +1,4 @@
-var Embeds = (function () {
+var Embed = (function () {
     'use strict';
 
     function embed(embedElement) {
@@ -48,4 +48,4 @@ var Embeds = (function () {
     };
 }());
 
-Embeds.init();
+Embed.init();
