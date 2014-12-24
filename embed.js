@@ -2,7 +2,8 @@ var Embed = (function () {
     'use strict';
 
     function embed(embedElement) {
-        var query = '',
+        var html,
+            query = '',
             dataset = dataSet(embedElement),
             key;
 
@@ -15,6 +16,14 @@ var Embed = (function () {
 
         // Make the request
         getJSON('embed' + query, function (response) {
+
+            if (response.error) {
+                // Place back to original html
+                embedElement.innerHTML = html;
+
+                return false;
+            }
+            
             // Make sure to only get the iframe
             var iframe = domExtract(response.html, 'iframe'),
                 provider = response.provider_name.toLowerCase();
@@ -34,8 +43,10 @@ var Embed = (function () {
 
             embedElement.appendChild(iframe);
         });
-
-        embedElement.innerHTML = 'Loading';
+        
+        embedElement.innerHTML = '';
+        
+        embedElement.appendChild(iframe);
     }
 
     function init() {
