@@ -20,16 +20,23 @@ class Embed {
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($handle, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
 
-        $json = curl_exec($handle);
+        $response = curl_exec($handle);
+        
+        if (curl_errno($handle))
+        {
+            return json_encode(
+                array('error' => curl_error($handle))
+            );
+        }
 
         curl_close($handle);
 
-        return self::filter($json, $params);
+        return self::filter($response, $params);
     }
 
-    protected static function filter($json, $params)
+    protected static function filter($response, $params)
     {
-        $data = json_decode($json, TRUE);
+        $data = json_decode($response, TRUE);
 
         // Remove the url
         unset($params['url']);
@@ -48,12 +55,12 @@ class Embed {
         // Get iframe src attribute
         preg_match('/src="([^"]+)"/', $data['html'], $match);
 
-        $glue = empty(parse_url($match[1], PHP_URL_QUERY)) ? '?' : '&';
+        $query = parse_url($match[1], PHP_URL_QUERY);
 
         // Replace iframe src attribute
         $data['html'] = preg_replace(
             '/src="([^"]+)"/', 
-            'src="' . $match[1] . $glue . http_build_query($params) . '"',
+            'src="' . $match[1] . (empty($query) ? '?' : '&') . http_build_query($params) . '"',
             $data['html']
         );
 
