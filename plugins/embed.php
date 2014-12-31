@@ -4,9 +4,9 @@ namespace Iksi;
 
 class Embed {
 
-    public static function embed($params)
+    public function fetch($params)
     {
-        $url = self::url($params);
+        $url = $this->get_url($params);
 
         if ($url === FALSE)
         {
@@ -31,10 +31,10 @@ class Embed {
 
         curl_close($handle);
 
-        return self::filter($response, $params);
+        return $this->filter_response($response, $params);
     }
 
-    protected static function filter($response, $params)
+    protected function filter_response($response, $params)
     {
         $data = json_decode($response, TRUE);
 
@@ -67,7 +67,7 @@ class Embed {
         return json_encode($data);
     }
 
-    protected static function url($params)
+    protected function get_url($params)
     {
         if ( ! isset($params['url']) || ! filter_var($params['url'], FILTER_VALIDATE_URL))
         {
