@@ -6,8 +6,9 @@ c::set('routes', array(
     array(
         'pattern' => 'embed',
         'action'  => function() {
+            $embed = new Iksi\Embed();
             return response::json(
-                Iksi\Embed::embed(get())
+                $embed->fetch(get());
             );
         }
     )
