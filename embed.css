@@ -16,17 +16,24 @@
 .embed--vimeo,
 .embed--youtube,
 .embed--mixcloud,
-.embed--soundcloud {
+.embed--soundcloud,
+.embed--spotify {
     padding: 0;
 }
 
 .embed--vimeo,
-.embed--youtube {
+.embed--youtube,
+.embed--spotify {
     position: relative;
 }
 
+.embed--spotify {
+    padding-top: 80px;
+}
+
 .embed--vimeo > iframe,
-.embed--youtube > iframe {
+.embed--youtube > iframe,
+.embed--spotify > iframe {
     position: absolute;
     top: 0;
     left: 0;
