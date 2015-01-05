@@ -1,32 +1,32 @@
 /**
  * Embed
  */
-.Embed {
+.embed {
     padding: 1em;
     margin: 1em 0;
     text-align: center;
     background-color: #f0f0f0;
 }
 
-.Embed > iframe {
+.embed > iframe {
     width: 100%;
     vertical-align: top;
 }
 
-.Embed--vimeo,
-.Embed--youtube,
-.Embed--mixcloud,
-.Embed--soundcloud {
+.embed--vimeo,
+.embed--youtube,
+.embed--mixcloud,
+.embed--soundcloud {
     padding: 0;
 }
 
-.Embed--vimeo,
-.Embed--youtube {
+.embed--vimeo,
+.embed--youtube {
     position: relative;
 }
 
-.Embed--vimeo > iframe,
-.Embed--youtube > iframe {
+.embed--vimeo > iframe,
+.embed--youtube > iframe {
     position: absolute;
     top: 0;
     left: 0;
