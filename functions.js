@@ -9,18 +9,6 @@ function getJSON(url, callback) {
     request.send()
 }
 
-function dataSet(element) {
-    var dataset = {},
-        match;
-    [].forEach.call(element.attributes, function (attribute) {
-        match = attribute.name.match(/data-([a-z]+)/i);
-        if (match && attribute.value.length > 0) {
-            dataset[match[1]] = attribute.value;
-        }
-    });
-    return dataset;
-}
-
 function domExtract(string, nodename) {
     var container = document.createElement('div');
     container.innerHTML = string;
