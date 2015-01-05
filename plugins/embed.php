@@ -7,11 +7,11 @@
  * @version 1.1.0
  */
 
-function embed($url, $autoplay = NULL, $class)
+function embed($url, $autoplay = NULL, $class = NULL)
 {
     $data = array(
         'url'      => $url,
-        'class'    => $class,
+        'class'    => is_null($class) ? kirby()->option('kirbytext.embed.class', 'embed') : $class,
         'label'    => preg_replace('/^https?:\/\//i', '', $url),
         'autoplay' => $autoplay
     );
