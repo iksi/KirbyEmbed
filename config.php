@@ -6,9 +6,9 @@ c::set('routes', array(
     array(
         'pattern' => 'embed',
         'action'  => function() {
-            $embed = new Iksi\Embed();
+            extract(a::get($_GET, array('url', 'autoplay')));
             return response::json(
-                $embed->fetch(get());
+                oembed($url, $autoplay)
             );
         }
     )
