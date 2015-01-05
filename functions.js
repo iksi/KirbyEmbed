@@ -14,7 +14,7 @@ function dataSet(element) {
         match;
     [].forEach.call(element.attributes, function (attribute) {
         match = attribute.name.match(/data-([a-z]+)/i);
-        if (match) {
+        if (match && attribute.value.length > 0) {
             dataset[match[1]] = attribute.value;
         }
     });
