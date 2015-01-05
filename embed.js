@@ -3,19 +3,18 @@ var Embed = (function () {
 
     function embed(embedElement) {
         var html,
-            query = '',
-            dataset = dataSet(embedElement),
-            key;
+            query;
 
-        // Build querystring
-        for (key in dataset) {
-            if (dataset.hasOwnProperty(key)) {
-                query += (query.length === 0 ? '?' : '&') + key + '=' + encodeURIComponent(dataset[key]);
-            }
+        // Build query
+        query = '?url=' + encodeURIComponent(embedElement.querySelector('a').getAttribute('href'));
+
+        // Add possible autoplay
+        if (embedElement.getAttribute('data-autoplay').length > 0) {
+            query += '&autoplay=' + embedElement.getAttribute('data-autoplay');
         }
 
         // Make the request
-        getJSON('embed' + query, function (response) {
+        getJSON('/embed' + query, function (response) {
 
             if (response.error) {
                 // Place back to original html
@@ -23,7 +22,7 @@ var Embed = (function () {
 
                 return false;
             }
-            
+
             // Make sure to only get the iframe
             var iframe = domExtract(response.html, 'iframe'),
                 provider = response.provider_name.toLowerCase();
@@ -43,10 +42,11 @@ var Embed = (function () {
 
             embedElement.appendChild(iframe);
         });
-        
-        embedElement.innerHTML = '';
-        
-        embedElement.appendChild(iframe);
+
+        // Store html in case we need to place it back
+        html = embedElement.innerHTML;
+
+        embedElement.innerHTML = 'Loading';
     }
 
     function init() {
@@ -58,5 +58,3 @@ var Embed = (function () {
         init: init
     };
 }());
-
-Embed.init();
