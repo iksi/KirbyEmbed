@@ -6,10 +6,6 @@
  * @author Iksi <info@iksi.cc>
  * @version 1.1.0
  */
-if ( ! class_exists('Iksi\oEmbed'))
-{
-    require_once(__DIR__ . DS . 'vendors' . DS . 'Iksi' . DS . 'oEmbed.php');
-}
 
 function embed($url, $autoplay = NULL, $class)
 {
@@ -25,6 +21,11 @@ function embed($url, $autoplay = NULL, $class)
 
 function oembed($url, $autoplay = NULL)
 {
+    if ( ! class_exists('Iksi\oEmbed'))
+    {
+        require_once(__DIR__ . DS . 'vendors' . DS . 'Iksi' . DS . 'oEmbed.php');
+    }
+
     $oembed = new Iksi\oEmbed();
     return $oembed->request($url, $autoplay);
 }
