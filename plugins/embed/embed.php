@@ -23,7 +23,7 @@ function oembed($url, $autoplay = NULL)
 {
     if ( ! class_exists('Iksi\oEmbed'))
     {
-        require_once(__DIR__ . DS . 'vendors' . DS . 'Iksi' . DS . 'oEmbed.php');
+        require_once(__DIR__ . DS . 'oEmbed' . DS . 'oEmbed.php');
     }
 
     $oembed = new Iksi\oEmbed();
