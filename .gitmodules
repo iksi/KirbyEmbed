@@ -1,0 +1,3 @@
+[submodule "plugins/vendors/Iksi/oEmbed"]
+	path = plugins/vendors/Iksi/oEmbed
+	url = https://github.com/iksi/oEmbed.git
