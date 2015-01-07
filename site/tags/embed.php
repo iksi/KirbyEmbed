@@ -2,10 +2,9 @@
 
 kirbytext::$tags['embed'] = array(
     'attr' => array(
-        'autoplay',
-        'class'
+        'autoplay'
     ),
     'html' => function($tag) {
-        return embed($tag->attr('embed'), $tag->attr('autoplay'), $tag->attr('class'));
+        return embed($tag->attr('embed'), $tag->attr('autoplay'));
     }
 );
