@@ -8,9 +8,3 @@ function getJSON(url, callback) {
     request.open('GET', url)
     request.send()
 }
-
-function domExtract(string, nodename) {
-    var container = document.createElement('div');
-    container.innerHTML = string;
-    return container.querySelector(nodename);
-}

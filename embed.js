@@ -17,15 +17,17 @@ var Embed = (function () {
         getJSON('/embed' + query, function (response) {
 
             if (response.error) {
-                // Place back to original html
                 embedElement.innerHTML = html;
-
-                return false;
+                return;
             }
 
             // Make sure to only get the iframe
-            var iframe = domExtract(response.html, 'iframe'),
+            var iframe,
+                container = document.createElement('div'),
                 provider = response.provider_name.toLowerCase();
+
+            container.innerHTML = response.html;
+            iframe = container.childNodes[0];
 
             // Add a modifier to the class based on provider
             embedElement.className = embedElement.className.replace(
@@ -38,9 +40,7 @@ var Embed = (function () {
                 embedElement.style.paddingTop = (100 * response.height / response.width) + '%';
             }
 
-            embedElement.innerHTML = '';
-
-            embedElement.appendChild(iframe);
+            embedElement.replaceChild(iframe, embedElement.firstChild);
         });
 
         // Store html in case we need to place it back
