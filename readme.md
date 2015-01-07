@@ -1,4 +1,4 @@
-# Embed for Kirby
+# Embed plugin for Kirby
 
 ## What is it
 Adds dynamic embedding for YouTube, Vimeo, MixCloud, SoundCloud and Spotify. Custom tag creates a container with an anchor instead of an embed code. After the page is loaded a javascript parses all these tags and fetches the embed codes by calling an oEmbed PHP class that makes a curl request.
