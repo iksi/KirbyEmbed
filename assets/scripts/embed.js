@@ -58,3 +58,5 @@ var Embed = (function () {
         init: init
     };
 }());
+
+Embed.init();
