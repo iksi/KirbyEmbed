@@ -7,7 +7,7 @@
  * @version 1.1.0
  */
 
-function embed($url, $autoplay = NULL)
+function embed($url, $autoplay = null)
 {
     $data = array(
         'url'      => $url,
@@ -19,7 +19,7 @@ function embed($url, $autoplay = NULL)
     return tpl::load(__DIR__ . DS . 'template.php', $data);
 }
 
-function oembed($url, $autoplay = NULL)
+function oembed($url, $autoplay = null)
 {
     if ( ! class_exists('Iksi\oEmbed'))
     {
