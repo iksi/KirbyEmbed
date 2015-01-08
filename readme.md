@@ -11,6 +11,10 @@ As it extends kirbytext you can use it by just typing something like:
 
 ```
 (embed: http://vimeo.com/35302484)
+```
 
-(embed: http://vimeo.com/35302484 autoplay: true)
+Or use the custom field method in you templates:
+
+```PHP
+<?php echo $video->link()->embed() ?>
 ```
