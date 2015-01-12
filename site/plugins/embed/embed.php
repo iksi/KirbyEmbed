@@ -7,25 +7,24 @@
  * @version 1.1.0
  */
 
-function embed($url, $autoplay = null)
+function embed($url)
 {
     $data = array(
         'url'      => $url,
-        'class'    => kirby()->option('kirbytext.embed.class', 'embed'),
-        'label'    => preg_replace('/^https?:\/\//i', '', $url),
-        'autoplay' => $autoplay
+        'class'    => kirby()->option('embed.class', 'embed'),
+        'label'    => preg_replace('/^https?:\/\//i', '', $url)
     );
 
     return tpl::load(__DIR__ . DS . 'template.php', $data);
 }
 
-function oembed($url, $autoplay = null)
+function oembed($url)
 {
     if ( ! class_exists('Iksi\oEmbed'))
     {
-        require_once(__DIR__ . DS . 'oEmbed' . DS . 'oEmbed.php');
+        require_once(__DIR__ . DS . 'vendors' . DS . 'oEmbed' . DS . 'oEmbed.php');
     }
 
     $oembed = new Iksi\oEmbed();
-    return $oembed->request($url, $autoplay);
+    return $oembed->request($url);
 }

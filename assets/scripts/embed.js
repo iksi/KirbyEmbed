@@ -8,10 +8,10 @@ var Embed = (function () {
         // Build query
         query = '?url=' + encodeURIComponent(embedElement.querySelector('a').getAttribute('href'));
 
-        // Add possible autoplay
-        if (embedElement.getAttribute('data-autoplay').length > 0) {
-            query += '&autoplay=' + embedElement.getAttribute('data-autoplay');
-        }
+        // // Add possible autoplay
+        // if (embedElement.getAttribute('data-autoplay').length > 0) {
+        //     query += '&autoplay=' + embedElement.getAttribute('data-autoplay');
+        // }
 
         // Make the request
         getJSON('/embed' + query, function (response) {
