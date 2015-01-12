@@ -10,9 +10,9 @@
 function embed($url)
 {
     $data = array(
-        'url'      => $url,
-        'class'    => kirby()->option('embed.class', 'embed'),
-        'label'    => preg_replace('/^https?:\/\//i', '', $url)
+        'url'   => $url,
+        'class' => kirby()->option('embed.class', 'embed'),
+        'label' => preg_replace('/^https?:\/\//i', '', $url)
     );
 
     return tpl::load(__DIR__ . DS . 'template.php', $data);
