@@ -11,7 +11,7 @@ function embed($url)
 {
     $data = array(
         'url'   => $url,
-        'class' => kirby()->option('embed.class', 'embed'),
+        'class' => c::get('embed.class', 'embed'),
         'label' => preg_replace('/^https?:\/\//i', '', $url)
     );
 
@@ -20,11 +20,11 @@ function embed($url)
 
 function oembed($url)
 {
-    if ( ! class_exists('Iksi\oEmbed'))
-    {
+    if ( ! class_exists('Iksi\oEmbed')) {
         require_once(__DIR__ . DS . 'vendors' . DS . 'oEmbed' . DS . 'oEmbed.php');
     }
 
     $oembed = new Iksi\oEmbed();
+
     return $oembed->request($url);
 }
