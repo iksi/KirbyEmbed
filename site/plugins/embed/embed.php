@@ -26,5 +26,5 @@ function oembed($url)
 
     $oembed = new Iksi\oEmbed();
 
-    return $oembed->request($url);
+    return $oembed->get($url);
 }

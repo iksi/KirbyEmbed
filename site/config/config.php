@@ -5,10 +5,10 @@ c::set('embed.class', 'embed');
 c::set('routes', array(
     array(
         'pattern' => 'embed',
-        'action'  => function() {
+        'action' => function() {
+            $url = get('url');
             return response::json(
-                $url = get('url');
-                oembed($url);
+                oembed($url)
             );
         }
     )
