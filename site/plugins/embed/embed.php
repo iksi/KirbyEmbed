@@ -4,27 +4,30 @@
  * Embed plugin
  *
  * @author Iksi <info@iksi.cc>
- * @version 1.1.0
+ * @version 1.2
  */
 
-function embed($url)
+class Embed
 {
-    $data = array(
-        'url'   => $url,
-        'class' => c::get('embed.class', 'embed'),
-        'label' => preg_replace('/^https?:\/\//i', '', $url)
-    );
+    public static function html($url)
+    {
+        $data = array(
+            'url'   => $url,
+            'class' => c::get('embed.class', 'embed'),
+            'label' => preg_replace('/^https?:\/\//i', '', $url)
+        );
 
-    return tpl::load(__DIR__ . DS . 'template.php', $data);
-}
-
-function oembed($url)
-{
-    if ( ! class_exists('Iksi\oEmbed')) {
-        require_once(__DIR__ . DS . 'vendors' . DS . 'oEmbed' . DS . 'oEmbed.php');
+        return tpl::load(__DIR__ . DS . 'template.php', $data);
     }
 
-    $oembed = new Iksi\oEmbed();
+    public static function get($url)
+    {
+        if ( ! class_exists('Iksi\oEmbed')) {
+            require_once(__DIR__ . DS . 'vendors' . DS . 'oEmbed' . DS . 'oEmbed.php');
+        }
 
-    return $oembed->get($url);
+        $oembed = new Iksi\oEmbed();
+
+        return $oembed->get($url);
+    }
 }

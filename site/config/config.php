@@ -8,7 +8,7 @@ c::set('routes', array(
         'action' => function() {
             $url = get('url');
             return response::json(
-                oembed($url)
+                embed::get($url)
             );
         }
     )
