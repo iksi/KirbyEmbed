@@ -26,7 +26,7 @@ class Embed
             require __DIR__ . DS . 'vendors' . DS . 'oEmbed' . DS . 'oEmbed.php';
         }
 
-        $oembed = new Iksi\oEmbed();
+        $oembed = new Iksi\oEmbed;
 
         return $oembed->get($url);
     }
