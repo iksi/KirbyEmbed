@@ -23,7 +23,7 @@ class Embed
     public static function get($url)
     {
         if ( ! class_exists('Iksi\oEmbed')) {
-            require_once(__DIR__ . DS . 'vendors' . DS . 'oEmbed' . DS . 'oEmbed.php');
+            require __DIR__ . DS . 'vendors' . DS . 'oEmbed' . DS . 'oEmbed.php';
         }
 
         $oembed = new Iksi\oEmbed();
