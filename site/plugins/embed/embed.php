@@ -1,33 +1,57 @@
 <?php
 
 /**
- * Embed plugin
+ * Embed plugin for Kirby
  *
- * @author Iksi <info@iksi.cc>
- * @version 1.2
+ * @author     Iksi <info@iksi.cc>
+ * @copyright  (c) 2014-2015 Iksi
+ * @license    MIT
+ * @version    1.3
  */
 
-class Embed
+use Iksi\oEmbed;
+
+if (class_exists('Iksi\oEmbed') === false) {
+    require __DIR__ . DS . 'vendor' . DS . 'oEmbed' . DS . 'oEmbed.php';
+}
+
+/**
+ * Class
+ */
+class Embed extends oEmbed
 {
-    public static function html($url)
+    public function html()
     {
         $data = array(
-            'url'   => $url,
+            'url'   => $this->url,
             'class' => c::get('embed.class', 'embed'),
             'label' => preg_replace('/^https?:\/\//i', '', $url)
         );
 
         return tpl::load(__DIR__ . DS . 'template.php', $data);
     }
-
-    public static function get($url)
-    {
-        if ( ! class_exists('Iksi\oEmbed')) {
-            require __DIR__ . DS . 'vendors' . DS . 'oEmbed' . DS . 'oEmbed.php';
-        }
-
-        $oembed = new Iksi\oEmbed;
-
-        return $oembed->get($url);
-    }
 }
+
+/**
+ * Helper method
+ */
+function embed()
+{
+    return new Embed;
+}
+
+/**
+ * Custom field method
+ */
+field::$methods['embed'] = function($url) {
+    return embed()->url($url)->html();
+};
+
+/**
+ * Custom kirbytag
+ */
+kirbytext::$tags['embed'] = array(
+    'html' => function($tag) {
+        return embed()->url($tag->attr('embed'))->html();
+    }
+);
