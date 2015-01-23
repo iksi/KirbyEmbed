@@ -25,7 +25,7 @@ class Embed extends oEmbed
         $data = array(
             'url'   => $this->url,
             'class' => c::get('embed.class', 'embed'),
-            'label' => preg_replace('/^https?:\/\//i', '', $url)
+            'label' => preg_replace('/^https?:\/\//i', '', $this->url)
         );
 
         return tpl::load(__DIR__ . DS . 'template.php', $data);
