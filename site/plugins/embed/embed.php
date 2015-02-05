@@ -20,12 +20,17 @@ if (class_exists('Iksi\oEmbed') === false) {
  */
 class Embed extends oEmbed
 {
-    public function html()
+    public function html($arguments = array())
     {
         $data = array(
-            'url' => $this->url,
+            'url'   => $this->url,
             'class' => c::get('embed.class', 'embed'),
-            'placeholder' => preg_replace('/^https?:\/\//i', '', $this->url)
+            'image' => isset($arguments['image'])
+                ? $arguments['image']
+                : false;,
+            'text'  => isset($arguments['text'])
+                ? html($arguments['text'])
+                : preg_replace('/^https?:\/\//i', '', $this->url);
         );
 
         return tpl::load(__DIR__ . DS . 'template.php', $data);
@@ -37,21 +42,29 @@ class Embed extends oEmbed
  */
 function embed()
 {
-    return new Embed;
+    $embed = new Embed;
+    return $embed->url($url);
 }
 
 /**
  * Custom field method
  */
 field::$methods['embed'] = function($url) {
-    return embed()->url($url)->html();
+    return embed($url);
 };
 
 /**
  * Custom kirbytag
  */
 kirbytext::$tags['embed'] = array(
+    'attr' => array(
+        'text',
+        'image'
+    ),
     'html' => function($tag) {
-        return embed()->url($tag->attr('embed'))->html();
+        return embed($tag->attr('embed'))->html(array_filter(array(
+            'text'  => $tag->attr('text'),
+            'image' => $tag->attr('image')
+        )));
     }
 );
