@@ -62,9 +62,13 @@ kirbytext::$tags['embed'] = array(
         'image'
     ),
     'html' => function($tag) {
+        $image = $tag->file($tag->attr('image'));
+
         return embed($tag->attr('embed'))->html(array_filter(array(
             'text'  => $tag->attr('text'),
-            'image' => $tag->attr('image')
+            'image' => ( ! is_null($image))
+                ? $image->url()
+                : url($tag->attr('image'))
         )));
     }
 );
