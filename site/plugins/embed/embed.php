@@ -40,7 +40,7 @@ class Embed extends oEmbed
 /**
  * Helper method
  */
-function embed()
+function embed($url)
 {
     $embed = new Embed;
     return $embed->url($url);
