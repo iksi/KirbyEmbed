@@ -16,7 +16,7 @@ As it extends kirbytext you can use it by just typing:
 You can also add text and image placeholders:
 
 ```
-(embed: http://vimeo.com/35302484 text: placeholder_text image: placeholder_image)
+(embed: http://vimeo.com/35302484 text: <placeholder_text> image: <placeholder_image>)
 ```
 
 Or use the custom field method in you templates:
