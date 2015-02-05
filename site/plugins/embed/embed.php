@@ -27,7 +27,7 @@ class Embed extends oEmbed
             'class' => c::get('embed.class', 'embed'),
             'image' => isset($arguments['image'])
                 ? $arguments['image']
-                : false;,
+                : false,
             'text'  => isset($arguments['text'])
                 ? html($arguments['text'])
                 : preg_replace('/^https?:\/\//i', '', $this->url);
