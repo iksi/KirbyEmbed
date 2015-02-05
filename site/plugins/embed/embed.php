@@ -30,7 +30,7 @@ class Embed extends oEmbed
                 : false,
             'text'  => isset($arguments['text'])
                 ? html($arguments['text'])
-                : preg_replace('/^https?:\/\//i', '', $this->url);
+                : preg_replace('/^https?:\/\//i', '', $this->url)
         );
 
         return tpl::load(__DIR__ . DS . 'template.php', $data);
