@@ -25,7 +25,7 @@ Or use the custom field method in you templates:
 <?php echo $page->video()->embed()->html() ?>
 
 <?php echo $page->video()->embed()->html(array(
-    'text' => 'placeholder_text',
+    'text'  => 'placeholder_text',
     'image' => 'placeholder_image'
 )) ?>
 ```
