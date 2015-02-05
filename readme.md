@@ -7,14 +7,25 @@ Adds dynamic embedding for YouTube, Vimeo, MixCloud, SoundCloud and Spotify. Cus
 Contents of the plugins folder should go in `site/plugins`. Add the contents of config.php to you `site/config/config.php` file and add the contents of `embed.js`, `functions.js` and `embed.css` to your assets.
 
 ## How to use
-As it extends kirbytext you can use it by just typing something like:
+As it extends kirbytext you can use it by just typing:
 
 ```
 (embed: http://vimeo.com/35302484)
 ```
 
+You can also add text and image placeholders:
+
+```
+(embed: http://vimeo.com/35302484 text: placeholder_text image: placeholder_image)
+```
+
 Or use the custom field method in you templates:
 
 ```PHP
-<?php echo $page->video()->embed() ?>
+<?php echo $page->video()->embed()->html() ?>
+
+<?php echo $page->video()->embed()->html(array(
+    'text' => 'placeholder_text',
+    'image' => 'placeholder_image'
+)) ?>
 ```
