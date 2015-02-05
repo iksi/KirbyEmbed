@@ -6,9 +6,8 @@ c::set('routes', array(
     array(
         'pattern' => 'embed',
         'action' => function() {
-            $url = get('url');
             return response::json(
-                embed($url)->fetch()
+                embed(get('url'))->fetch()
             );
         }
     )
