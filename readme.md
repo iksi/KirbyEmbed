@@ -13,6 +13,7 @@ As it extends kirbytext you can use it by just typing:
 (embed: http://vimeo.com/35302484)
 ```
 
+The default placeholder text will be the url without the protocol: ‘vimeo.com/35302484’
 You can also add text and image placeholders:
 
 ```
