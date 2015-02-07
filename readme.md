@@ -30,3 +30,6 @@ Or use the custom field method in you templates:
     'image' => 'placeholder_image'
 )) ?>
 ```
+
+## Todo
+Update the javascript in èmbed.js`to be able to choose whether embed should be loaded immediately after pageload or after a tap/click by the user.
