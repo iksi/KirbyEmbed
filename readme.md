@@ -32,4 +32,4 @@ Or use the custom field method in you templates:
 ```
 
 ## Todo
-Update the javascript in èmbed.js`to be able to choose whether embed should be loaded immediately after pageload or after a tap/click by the user.
+Update the javascript in `embed.js` to be able to choose whether embed should be loaded immediately after pageload or after a tap/click by the user.
