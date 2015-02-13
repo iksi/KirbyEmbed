@@ -6,7 +6,7 @@
  * @author     Iksi <info@iksi.cc>
  * @copyright  (c) 2014-2015 Iksi
  * @license    MIT
- * @version    1.3
+ * @version    1.4
  */
 
 use Iksi\oEmbed;
@@ -16,41 +16,37 @@ if (class_exists('Iksi\oEmbed') === false) {
 }
 
 /**
- * Class
+ * oembed helper method
  */
-class Embed extends oEmbed
+function oembed($url)
 {
-    public function html($arguments = array())
-    {
-        $data = array(
-            'url'   => $this->url,
-            'class' => c::get('embed.class', 'embed'),
-            'image' => isset($arguments['image'])
-                ? $arguments['image']
-                : false,
-            'text'  => isset($arguments['text'])
-                ? html($arguments['text'])
-                : preg_replace('/^https?:\/\//i', '', $this->url)
-        );
+    $oembed = new oEmbed;
 
-        return tpl::load(__DIR__ . DS . 'template.php', $data);
-    }
+    return $oembed->fetch($url);
 }
 
 /**
- * Helper method
+ * Embed helper method
  */
-function embed($url)
+function embed($url, $alt = false, $poster = false)
 {
-    $embed = new Embed;
-    return $embed->url($url);
+    return kirbytag(array(
+        'embed'  => $url,
+        'alt'    => $alt,
+        'poster' => $poster
+    ));
 }
 
 /**
- * Custom field method
+ * Custom field method (revise)
  */
-field::$methods['embed'] = function($url) {
-    return embed($url);
+field::$methods['embed'] = function($url, $alt, $poster) {
+    // run the kirbytag
+    return kirbytag(array(
+        'embed'  => $url,
+        'alt'    => $alt,
+        'poster' => $poster
+    ));
 };
 
 /**
@@ -58,15 +54,21 @@ field::$methods['embed'] = function($url) {
  */
 kirbytext::$tags['embed'] = array(
     'attr' => array(
-        'text',
-        'image'
+        'alt',
+        'poster'
     ),
     'html' => function($tag) {
-        $image = $tag->file($tag->attr('image'));
+        $data = array(
+            'url'    => $tag->attr('embed'),
+            'class'  => c::get('embed.class', 'embed'),
+            'poster' => ( ! $poster = $tag->file($tag->attr('poster')))
+                ? $tag->attr('poster')
+                : $poster->url(),
+            'alt'    => ( ! $tag->attr('alt'))
+                ? preg_replace('/^https?:\/\//i', '', $tag->attr('embed'))
+                : $tag->attr('alt')
+        );
 
-        return embed($tag->attr('embed'))->html(array_filter(array(
-            'text'  => $tag->attr('text'),
-            'image' => $image ? $image->url() : $tag->attr('image')
-        )));
+        return tpl::load(__DIR__ . DS . 'template.php', $data);
     }
 );
