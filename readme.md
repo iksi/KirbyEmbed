@@ -13,22 +13,28 @@ As it extends kirbytext you can use it by just typing:
 (embed: http://vimeo.com/35302484)
 ```
 
-The default placeholder text will be the url without the protocol: ‘vimeo.com/35302484’
-You can also add text and image placeholders:
+The default alt text will be the url without the protocol: ‘vimeo.com/35302484’
 
 ```
-(embed: http://vimeo.com/35302484 text: <placeholder_text> image: <placeholder_image>)
+(embed: http://vimeo.com/35302484)
 ```
 
-Or use the custom field method in you templates:
+You can also add your own alt and poster image:
+
+```
+(embed: http://vimeo.com/35302484 alt: <alt_text> poster: <poster_image>)
+```
+
+Or use the helper method in you templates and snippets:
 
 ```PHP
-<?php echo $page->video()->embed()->html() ?>
+<?php echo embed($page->field(), $alt, $poster) ?>
+```
 
-<?php echo $page->video()->embed()->html(array(
-    'text'  => 'placeholder_text',
-    'image' => 'placeholder_image'
-)) ?>
+Alternatively you can use the custom field method:
+
+```PHP
+<?php echo $page->field()->embed($alt, $poster) ?>
 ```
 
 ## Todo

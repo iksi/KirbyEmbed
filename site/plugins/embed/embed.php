@@ -38,7 +38,7 @@ function embed($url, $alt = false, $poster = false)
 }
 
 /**
- * Custom field method (revise)
+ * Custom field method
  */
 field::$methods['embed'] = function($url, $alt, $poster) {
     // run the kirbytag
