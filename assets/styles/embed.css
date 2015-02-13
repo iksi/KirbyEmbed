@@ -2,15 +2,10 @@
  * Embed
  */
 .embed {
-    padding: 1em;
     margin: 1em 0;
+    position: relative;
     text-align: center;
     background-color: #f0f0f0;
-}
-
-.embed > iframe {
-    width: 100%;
-    vertical-align: top;
 }
 
 .embed--vimeo,
@@ -21,14 +16,18 @@
     padding: 0;
 }
 
-.embed--vimeo,
-.embed--youtube,
-.embed--spotify {
-    position: relative;
-}
-
 .embed--spotify {
     padding-top: 80px;
+}
+
+.embed-alt {
+    display: block;
+    padding: 1em;
+}
+
+.embed > iframe {
+    width: 100%;
+    vertical-align: top;
 }
 
 .embed--vimeo > iframe,
