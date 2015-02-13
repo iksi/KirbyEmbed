@@ -2,7 +2,7 @@ var Embed = (function () {
     'use strict';
 
     function embed(embedElement) {
-        var url = '/embed?url=' + encodeURIComponent(
+        var url = '/oembed?url=' + encodeURIComponent(
             embedElement.querySelector('a').getAttribute('href')
         );
 
