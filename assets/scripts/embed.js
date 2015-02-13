@@ -2,17 +2,14 @@ var Embed = (function () {
     'use strict';
 
     function embed(embedElement) {
-        var html,
-            query;
-
-        // Build query
-        query = '?url=' + encodeURIComponent(embedElement.querySelector('a').getAttribute('href'));
+        var url = '/embed?url=' + encodeURIComponent(
+            embedElement.querySelector('a').getAttribute('href')
+        );
 
         // Make the request
-        getJSON('/embed' + query, function (response) {
+        getJSON(url, function (response) {
 
             if (response.error) {
-                embedElement.innerHTML = html;
                 return;
             }
 
@@ -31,17 +28,12 @@ var Embed = (function () {
             );
 
             // Video, add paddingTop based on the ratio
-            if (provider === 'youtube' || provider === 'vimeo') {
+            if (/^youtube|vimeo$/.test(provider)) {
                 embedElement.style.paddingTop = (100 * response.height / response.width) + '%';
             }
 
             embedElement.replaceChild(iframe, embedElement.firstChild);
         });
-
-        // Store html in case we need to place it back
-        html = embedElement.innerHTML;
-
-        embedElement.innerHTML = 'Loading';
     }
 
     function init() {
