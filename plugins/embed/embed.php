@@ -85,4 +85,4 @@ kirby()->routes(array(
             );
         }
     )
-);
+));
