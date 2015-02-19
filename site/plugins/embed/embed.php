@@ -72,3 +72,15 @@ kirbytext::$tags['embed'] = array(
         return tpl::load(__DIR__ . DS . 'template.php', $data);
     }
 );
+
+/**
+ * Oembed route
+ */
+kirby()->options['routes'][] = array(
+    'pattern' => 'oembed',
+    'action'  => function() {
+        return response::json(
+            oembed(get('url'))
+        );
+    }
+);
