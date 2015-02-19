@@ -74,13 +74,15 @@ kirbytext::$tags['embed'] = array(
 );
 
 /**
- * Oembed route
+ * Route(s)
  */
-kirby()->options['routes'][] = array(
-    'pattern' => 'oembed',
-    'action'  => function() {
-        return response::json(
-            oembed(get('url'))
-        );
-    }
+kirby()->routes(array(
+    array(
+        'pattern' => 'oembed',
+        'action'  => function() {
+            return response::json(
+                oembed(get('url'))
+            );
+        }
+    )
 );
