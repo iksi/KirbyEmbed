@@ -40,7 +40,7 @@ function embed($url, $alt = false, $poster = false)
 /**
  * Custom field method
  */
-field::$methods['embed'] = function($url, $alt, $poster) {
+field::$methods['embed'] = function($url, $alt = false, $poster = false) {
     // run the kirbytag
     return kirbytag(array(
         'embed'  => $url,
